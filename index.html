@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>
+Ohes Noes Cryptos
+</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+$(document).ready(function() {
+	var btcamount = 0;
+	var bchamount = 0;
+	$.when(
+        $.ajax({
+                url: "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+                type: "get",
+                dataType: "json",
+                async: true
+        }).done(function (response) {
+                btcamount = +response.data.amount;
+  
+                $('#btcamount').html("Current BTC Price: $"+btcamount.toLocaleString())
+        }).fail(function (response) {
+                console.log("Failed:" + response);
+        }),
+		
+        $.ajax({
+                url: "https://api.coinbase.com/v2/prices/BCH-USD/spot",
+                type: "get",
+                dataType: "json",
+                async: true
+        }).done(function (response) {
+                bchamount = +response.data.amount;
+
+                $('#bchamount').html("Current BCH Price: $"+bchamount.toLocaleString())
+        }).fail(function (response) {
+                console.log("Failed:" + response);
+        })
+	).then(function(){
+		var brandonqq = (btcamount + bchamount) * 42;
+		
+		$('#msg').html('Brandon bought $'+brandonqq.toLocaleString()+' tires!');
+	});
+});
+</script>
+<style>
+<!-- div { font-size: x-large;  font-family: "Comic Sans MS", cursive, sans-serif} -->
+div { font-size: x-large;  font-family: "Comic Sans MS",  sans-serif}
+</style>
+
+</head>
+<body>
+<p>
+<div id="btcamount">Checking BTC Price. . . .</div>
+</p>
+<p>
+<div id="bchamount">Checking BCH Price. . . .</div>
+</p>
+<p>
+<div id="msg">Wait for it. . . .</div>
+</p>
+<p>
+<img src="giphy.gif">
+</p>
+<p>
+<img src="under.gif">
+</p>
+</body>
+</html>
